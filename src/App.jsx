@@ -1,11 +1,41 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css'
-import { initWebGL } from './renderer/renderer';
+import { createShaderProgram, initWebGL, loadImage, render } from './renderer/renderer';
 
 function App() {
+  const glRef = useRef(null);
+  const programRef = useRef(null);
+  const [texture, setTexture] = useState(null);
+
   useEffect(() => {
-    initWebGL('canvas');
+    const gl = initWebGL('canvas');
+    glRef.current = gl;
+
+    const program = createShaderProgram(gl);
+    programRef.current = program;
+
+    const texture = loadImage(gl, '/landscape.jpg');
+    setTexture(texture);
   }, []);
+
+  useEffect(() => {
+    if (!glRef.current || !programRef.current) {
+      return;
+    }
+
+    let animationFrameId;
+
+    const loop = () => {
+      render(glRef.current, programRef.current, texture);
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    loop();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [glRef.current, programRef.current, texture]);
 
   return (
     <main>

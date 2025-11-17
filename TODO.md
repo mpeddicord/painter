@@ -3,13 +3,13 @@
 ## Core Essential Features
 
 ### Rendering
-- [ ] Initialize WebGL2 context.
-- [ ] Create a shader program for drawing textures.
-- [ ] Implement a render loop.
+- [x] Initialize WebGL2 context.
+- [x] Create a shader program for drawing textures.
+- [x] Implement a render loop.
 - [ ] Support for float/half-float textures for HDR.
 
 ### Image format & pipeline
-- [ ] Load and display common image formats (JPEG, PNG).
+- [x] Load and display common image formats (JPEG, PNG).
 - [ ] Implement fragment shaders for basic blend modes (Normal, Multiply, Screen).
 - [ ] Implement fragment shaders for essential adjustment layers (Brightness/Contrast, HSL).
 
